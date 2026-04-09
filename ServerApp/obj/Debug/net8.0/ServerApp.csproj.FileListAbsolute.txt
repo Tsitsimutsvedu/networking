@@ -1,0 +1,15 @@
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\bin\Debug\net8.0\ServerApp.exe
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\bin\Debug\net8.0\ServerApp.deps.json
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\bin\Debug\net8.0\ServerApp.runtimeconfig.json
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\bin\Debug\net8.0\ServerApp.dll
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\bin\Debug\net8.0\ServerApp.pdb
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.AssemblyInfoInputs.cache
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.AssemblyInfo.cs
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.sourcelink.json
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.dll
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\refint\ServerApp.dll
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.pdb
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ServerApp.genruntimeconfig.cache
+C:\Users\User\OneDrive\Desktop\networking\ServerApp\obj\Debug\net8.0\ref\ServerApp.dll
