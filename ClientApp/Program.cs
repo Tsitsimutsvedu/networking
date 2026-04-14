@@ -1,5 +1,5 @@
 ﻿// Client.cs
-// This program connects to the server and sends user requests.
+// TCP Client that sends commands to the server and displays responses
 
 using System;
 using System.Net.Sockets;
@@ -11,12 +11,11 @@ class Client
     {
         try
         {
-            // Connect to server
-            TcpClient client = new TcpClient("127.0.0.1", 5000);
-            NetworkStream stream = client.GetStream();
+            using TcpClient client = new TcpClient("127.0.0.1", 5000);
+            using NetworkStream stream = client.GetStream();
 
             Console.WriteLine("Connected to server.");
-            Console.WriteLine("Commands:");
+            Console.WriteLine("Available commands:");
             Console.WriteLine("TIME");
             Console.WriteLine("UPPER your_text");
             Console.WriteLine("LOWER your_text");
@@ -26,28 +25,29 @@ class Client
             while (true)
             {
                 Console.Write("Enter command: ");
-                string message = Console.ReadLine();
+                string? message = Console.ReadLine();
 
-                if (message.ToLower() == "exit")
+                if (string.IsNullOrWhiteSpace(message))
+                    continue;
+
+                if (message.Equals("exit", StringComparison.OrdinalIgnoreCase))
                     break;
 
-                // Send request
-                byte[] data = Encoding.ASCII.GetBytes(message);
+                // Send message to server
+                byte[] data = Encoding.UTF8.GetBytes(message);
                 stream.Write(data, 0, data.Length);
 
                 // Receive response
                 byte[] buffer = new byte[1024];
                 int bytesRead = stream.Read(buffer, 0, buffer.Length);
 
-                string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 Console.WriteLine("Server response: " + response);
             }
-
-            client.Close();
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            Console.WriteLine("Error: " + e.Message);
+            Console.WriteLine("Error: " + ex.Message);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿// Server.cs
-// This program creates a TCP server that listens for client requests
-// and responds based on different commands.
+// TCP Server that handles simple client commands
 
 using System;
 using System.IO;
@@ -12,87 +11,68 @@ class Server
 {
     static void Main()
     {
-        // Create a TCP listener on port 5000
-        TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 5000);
+        // Create TCP listener on localhost:5000
+        TcpListener server = new TcpListener(IPAddress.Loopback, 5000);
         server.Start();
 
-        Console.WriteLine("Server started. Waiting for connection...");
+        Console.WriteLine("Server started on port 5000...");
+        Console.WriteLine("Waiting for client connection...");
 
         while (true)
         {
-            // Accept client connection
-            TcpClient client = server.AcceptTcpClient();
+            using TcpClient client = server.AcceptTcpClient();
             Console.WriteLine("Client connected!");
 
-            NetworkStream stream = client.GetStream();
+            using NetworkStream stream = client.GetStream();
 
             byte[] buffer = new byte[1024];
             int bytesRead;
 
-            // Keep listening for messages
-            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
+            // Read client requests
+            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                string request = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-                Console.WriteLine("Received: " + request);
+                string request = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
+                Console.WriteLine($"Received: {request}");
 
                 string response = HandleRequest(request);
 
-                byte[] responseData = Encoding.ASCII.GetBytes(response);
+                byte[] responseData = Encoding.UTF8.GetBytes(response);
                 stream.Write(responseData, 0, responseData.Length);
             }
 
-            client.Close();
             Console.WriteLine("Client disconnected.");
         }
     }
 
-    // Function to process requests
+    // Handles all client commands
     static string HandleRequest(string request)
     {
-        string[] parts = request.Split(' ', 2);
+        string[] parts = request.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
         string command = parts[0].ToUpper();
 
-        // TIME request
-        if (command == "TIME")
+        switch (command)
         {
-            return DateTime.Now.ToString();
-        }
+            case "TIME":
+                return DateTime.Now.ToString();
 
-        // UPPER request
-        else if (command == "UPPER")
-        {
-            if (parts.Length > 1)
-                return parts[1].ToUpper();
-            else
-                return "No text provided";
-        }
+            case "UPPER":
+                return parts.Length > 1 ? parts[1].ToUpper() : "No text provided";
 
-        // LOWER request
-        else if (command == "LOWER")
-        {
-            if (parts.Length > 1)
-                return parts[1].ToLower();
-            else
-                return "No text provided";
-        }
+            case "LOWER":
+                return parts.Length > 1 ? parts[1].ToLower() : "No text provided";
 
-        // FILE request (reads local file)
-        else if (command == "FILE")
-        {
-            try
-            {
-                return File.ReadAllText("data.txt");
-            }
-            catch
-            {
-                return "Error reading file";
-            }
-        }
+            case "FILE":
+                try
+                {
+                    return File.ReadAllText("data.txt");
+                }
+                catch
+                {
+                    return "Error reading file or file not found";
+                }
 
-        // Invalid request
-        else
-        {
-            return "Invalid command";
+            default:
+                return "Invalid command. Use TIME, UPPER, LOWER, or FILE.";
         }
     }
 }

@@ -79,25 +79,15 @@ Hello from C# server file!
 This file is used in the networking assignment.
 🎥 Video Demonstration
 
-(Add your video link here)
-
-👉 Video Link: [Insert your link here]
-
-📌 GitHub Repository
-
-(Add your repository link here)
-
-👉 Repo Link: [Insert your link here]
-
 📚 What I Learned
 How TCP client-server communication works
 How to send and receive data over a network
 How to process different commands from a client
 How to read files from a server in C#
 Basic networking concepts in software development
+
 👨‍💻 Author
-
 Tsitsi Mutsvedu
-## GitHub Repo
 
+## GitHub Repo
 https://github.com/Tsitsimutsvedu/networking

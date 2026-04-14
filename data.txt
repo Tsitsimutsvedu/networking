@@ -1,3 +1,0 @@
-Hello from C# server file!
-This file is being sent to the client.
-Networking assignment is working.
